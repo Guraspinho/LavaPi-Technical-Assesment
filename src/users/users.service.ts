@@ -2,19 +2,25 @@ import { Injectable } from '@nestjs/common';
 import { RegisterUserDto } from './usersDto/registerUser.dto';
 import { LoginUserDto } from './usersDto/loginUser.dto';
 import argon2 from "argon2";
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from './entities/user.entity';
+import { Repository } from 'typeorm';
 
 
 @Injectable()
 export class UsersService
 {
+    constructor(@InjectRepository(User) private userRepository: Repository<User>) {}
 
-    register(userCredentials: RegisterUserDto)
+    async register(userCredentials: RegisterUserDto)
     {
+
         userCredentials.email = userCredentials.email.toLowerCase();
+
     }
 
 
-    login(userCredentials: LoginUserDto)
+    async login(userCredentials: LoginUserDto)
     {
         userCredentials.email = userCredentials.email.toLowerCase();
     }

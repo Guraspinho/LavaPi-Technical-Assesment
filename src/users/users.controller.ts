@@ -4,13 +4,12 @@ import { RegisterUserDto } from './usersDto/registerUser.dto';
 
 import { UsersService } from './users.service';
 import { LoginUserDto } from './usersDto/loginUser.dto';
-
+ 
 @Controller('users')
 export class UsersController
 {
     constructor(private usersService: UsersService) {}
-
-    
+ 
     @Post("register")
     register(@Body() userCredentials: RegisterUserDto)
     {

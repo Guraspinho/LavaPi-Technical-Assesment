@@ -1,42 +1,40 @@
-version: '3.8'
 
 services:
-  database:
-    image: postgres:13
-    restart: always
-    container_name: postgres_db
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    networks:
-      - lavapi_network
-
   app:
     build:
       context: .
     container_name: nest_app
+    command: npm run start:dev  # Start in watch mode
     ports:
       - "3000:3000"
     depends_on:
       - database
-    environment:
-      DATABASE_HOST: database
-      DATABASE_PORT: ${DATABASE_PORT}
-      DATABASE_USER: ${POSTGRES_USER}
-      DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
-      DATABASE_NAME: ${POSTGRES_DB}
+    env_file:
+      - .env
     volumes:
-      - .:/app
-    networks:
-      - lavapi_network
+      - .:/app                   # Bind mount for syncing
+      - /app/node_modules         # Ensure node_modules stay in container
+    develop:
+      watch:
+        - action: sync            # Syncs changes without container restart
+          path: ./src             # Path to watch on the host
+          target: /app/src         # Path in the container
+        - action: rebuild
+          path: package.json       # Rebuild container if package.json changes
+          target: /app/package.json
+      ignore:
+          - node_modules/
+
+  database:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: irakli
+      POSTGRES_PASSWORD: A11qitshors
+      POSTGRES_DB: your_postgres_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
 volumes:
   postgres_data:
-
-networks:
-  lavapi_network:
