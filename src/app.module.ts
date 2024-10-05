@@ -7,6 +7,7 @@ import { UsersModule } from './users/users.module';
 import { BooksModule } from './books/books.module';
 import { AuthModule } from './auth/auth.module';
 
+
 @Module({
     imports: [
         ConfigModule.forRoot(),
@@ -23,7 +24,7 @@ import { AuthModule } from './auth/auth.module';
         }),
         UsersModule,
         BooksModule,
-        AuthModule
+        AuthModule,
     ],
     controllers: [AppController],
     providers: [AppService],
