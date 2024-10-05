@@ -3,9 +3,9 @@ import { IsString, IsEmail, MaxLength, MinLength, IsNotEmpty } from "class-valid
 
 export class RegisterUserDto
 {
-    @IsString()
-    @IsNotEmpty()
+    @IsString({message:"Please provide a string"})
     @MaxLength(20)
+    @IsNotEmpty()
     firstName: string;
 
     @IsString()

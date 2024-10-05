@@ -1,3 +1,4 @@
+import { Type } from "class-transformer";
 import { IsString, IsNotEmpty, IsDate } from "class-validator";
 
 export class AddBookDto
@@ -11,6 +12,7 @@ export class AddBookDto
     author: string;
 
     @IsNotEmpty()
+    @Type(() => Date)
     @IsDate()
     publishDate: Date
 }

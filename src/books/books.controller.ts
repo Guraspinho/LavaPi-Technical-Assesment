@@ -1,7 +1,7 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, ValidationPipe } from '@nestjs/common';
 import { BooksService } from './books.service';
-import { AddBookDto } from './booksDto/createBook.dto';
-import { UpdateBookDto } from './booksDto/editBook.dto';
+import { AddBookDto } from './dto/createBook.dto';
+import { UpdateBookDto } from './dto/editBook.dto';
 
 @Controller('books')
 export class BooksController
@@ -10,7 +10,7 @@ export class BooksController
 
     // adds a book in a database
     @Post("create")
-    createBook(@Body() bookInfo: AddBookDto)
+    createBook(@Body(ValidationPipe) bookInfo: AddBookDto)
     {
         return this.booksService.createBook(bookInfo);
     }
@@ -31,7 +31,7 @@ export class BooksController
 
     // edits a book based on it's id
     @Patch("edit/:id")
-    editBook(@Param("id", ParseIntPipe) id: number, @Body() bookInfo: UpdateBookDto)
+    editBook(@Param("id", ParseIntPipe) id: number, @Body(ValidationPipe) bookInfo: UpdateBookDto)
     {
         return this.booksService.editBook(id,bookInfo);
     }

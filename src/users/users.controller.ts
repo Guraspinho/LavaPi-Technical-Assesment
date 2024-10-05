@@ -1,9 +1,9 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, ValidationPipe } from '@nestjs/common';
 
-import { RegisterUserDto } from './usersDto/registerUser.dto';
+import { RegisterUserDto } from './dto/registerUser.dto';
 
 import { UsersService } from './users.service';
-import { LoginUserDto } from './usersDto/loginUser.dto';
+import { LoginUserDto } from './dto/loginUser.dto';
  
 @Controller('users')
 export class UsersController
@@ -11,13 +11,13 @@ export class UsersController
     constructor(private usersService: UsersService) {}
  
     @Post("register")
-    register(@Body() userCredentials: RegisterUserDto)
+    register(@Body(ValidationPipe) userCredentials: RegisterUserDto)
     {
         return this.usersService.register(userCredentials);
     }
 
     @Post("login")
-    login(@Body() userCredentials: LoginUserDto)
+    login(@Body(ValidationPipe) userCredentials: LoginUserDto)
     {
         return this.usersService.login(userCredentials)
     }

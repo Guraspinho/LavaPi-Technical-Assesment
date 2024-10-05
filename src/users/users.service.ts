@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { RegisterUserDto } from './usersDto/registerUser.dto';
-import { LoginUserDto } from './usersDto/loginUser.dto';
+import { RegisterUserDto } from './dto/registerUser.dto';
+import { LoginUserDto } from './dto/loginUser.dto';
 import argon2 from "argon2";
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
