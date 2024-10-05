@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { User } from "src/users/entities/user.entity";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("books")
 export class Book
@@ -13,5 +14,9 @@ export class Book
     author: string;
 
     @Column({ type: 'date' })
-    publishDate: Date
+    publishDate: Date;
+
+    // Adding a Many-to-One relationship to User
+    @ManyToOne(() => User, (user) => user.books)
+    user: User;
 }

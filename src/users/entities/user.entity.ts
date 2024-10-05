@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn, Unique } from "typeorm";
+import { Book } from "src/books/entities/book.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn, Unique } from "typeorm";
 
 @Entity("users")
 @Unique(['email'])
@@ -18,4 +19,8 @@ export class User
 
     @Column()
     password: string;
+
+    // Adding a One-to-Many relationship to Book
+    @OneToMany(() => Book, (book) => book.user)
+    books: Book[];
 }

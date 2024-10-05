@@ -1,9 +1,11 @@
-import { Body, Controller, Get, Post, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards, ValidationPipe } from '@nestjs/common';
 
 import { RegisterUserDto } from './dto/registerUser.dto';
 
 import { UsersService } from './users.service';
 import { LoginUserDto } from './dto/loginUser.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { GetUser } from 'src/auth/decorators/user.decorator';
  
 @Controller('users')
 export class UsersController
@@ -23,8 +25,9 @@ export class UsersController
     }
 
     @Get("info")
-    getUserInfo()
+    @UseGuards(AuthGuard('jwt'))
+    getUserInfo(@GetUser() userId: number)
     {
-        return this.usersService.getUserInfo();
+        return this.usersService.getUserInfo(userId);
     }
 }
