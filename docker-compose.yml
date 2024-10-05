@@ -12,15 +12,15 @@ services:
     env_file:
       - .env
     volumes:
-      - .:/app                   # Bind mount for syncing
-      - /app/node_modules         # Ensure node_modules stay in container
+      - .:/app                   
+      - /app/node_modules         
     develop:
       watch:
-        - action: sync            # Syncs changes without container restart
-          path: ./src             # Path to watch on the host
-          target: /app/src         # Path in the container
+        - action: sync          
+          path: ./src            
+          target: /app/src         
         - action: rebuild
-          path: package.json       # Rebuild container if package.json changes
+          path: package.json       
           target: /app/package.json
       ignore:
           - node_modules/
@@ -28,7 +28,7 @@ services:
   database:
     image: postgres:13
     environment:
-      POSTGRES_USER: irakli
+      POSTGRES_USER: irakli # these variables can also come from .env
       POSTGRES_PASSWORD: A11qitshors
       POSTGRES_DB: your_postgres_db
     ports:

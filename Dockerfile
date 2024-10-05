@@ -1,3 +1,5 @@
+# Basic Dockerfile configuration for node server to start
+
 FROM node:16
 
 WORKDIR /app

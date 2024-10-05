@@ -9,19 +9,22 @@ import { ExtractId } from 'src/auth/decorators/user.decorator';
 export class UsersController
 {
     constructor(private usersService: UsersService) {}
- 
+    
+    // for creatin new user and saving it to a database
     @Post("register")
     register(@Body(ValidationPipe) userCredentials: RegisterUserDto)
     {
         return this.usersService.register(userCredentials);
     }
 
+    // after successful login, this function returns an access token
     @Post("login")
     login(@Body(ValidationPipe) userCredentials: LoginUserDto)
     {
         return this.usersService.login(userCredentials)
     }
 
+    // gets user information based on id that is extracted from jwt
     @Get("info")
     @UseGuards(AuthGuard('jwt'))
     getUserInfo(@ExtractId() userId: number)

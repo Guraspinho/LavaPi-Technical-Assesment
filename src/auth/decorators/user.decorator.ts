@@ -7,7 +7,7 @@ export const ExtractId = createParamDecorator(
     {
         const request = ctx.switchToHttp().getRequest();
         
-        // returning only the id because that is the only thing that i need for identification
+        // returning only the id because that is the only thing that is needed for identification
         return request.user.id;
     },
 );

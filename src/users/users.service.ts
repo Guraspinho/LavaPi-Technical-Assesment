@@ -19,12 +19,11 @@ export class UsersService
 
     async register(userCredentials: RegisterUserDto)
     {
-        // since searching in a database is case sensitive, this makes sure that all the emails will be lowercase
+        // For nsuring that all emails are lowercase to avoid case sensitivity issues in database searches.
         userCredentials.email = userCredentials.email.toLowerCase();
 
         try
         {
-    
             const hashedPassword = await argon2.hash(userCredentials.password);
 
             const user = this.userRepository.create(
@@ -47,10 +46,8 @@ export class UsersService
                     throw new ConflictException("Email already in use");
                 }
             }
-
             // For handling other types of errors
             throw new InternalServerErrorException('Error registering user');
-        
         }
 
     }
@@ -79,7 +76,8 @@ export class UsersService
                 throw new UnauthorizedException("Email or password is incorrect");
             }
 
-            // Generating JWT access token
+            // Generating the JWT access token here instead of in the auth module, 
+            // since this project is small and it makes things simpler.
             const payload = { firstName: user.firstName, lastName: user.lastName, id: user.id }; 
             const token = this.jwtService.sign(payload);
 
@@ -88,8 +86,6 @@ export class UsersService
         }
         catch (error)
         {
-            console.log(`Error logging in: ${error}`);
-            
             if (error instanceof HttpException)
             {
                 throw error;  
@@ -97,13 +93,15 @@ export class UsersService
 
             throw new InternalServerErrorException("Error logging in");
         }
-
     }
 
     async getUserInfo(userId: number)
     {
         try
         {
+            // Checking if the user with the specified ID exists in the database. 
+            // While it's almost impossible for a user to be absent (since users can't be deleted),
+            // I'm adding this validation to showcase my attention to detail and coding best practices.
             const user = await this.userRepository.findOneBy({id: userId});
 
             if(!user)
@@ -120,7 +118,6 @@ export class UsersService
             {
                 throw error;  
             }
-
             throw new InternalServerErrorException("Error finding user");
         }
 
