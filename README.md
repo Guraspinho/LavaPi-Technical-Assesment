@@ -1,84 +1,105 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Book Management System
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+This system will enable users to manage books with support for user authentication.
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Project setup
+## 1. Getting started
 
-```bash
-$ npm install
+### 1.1 Project configuration
+
+Start by cloning this project on your workstation.
+
+```sh
+git clone git@github.com:Guraspinho/LavaPi-Technical-Assesment.git
 ```
 
-## Compile and run the project
+The next thing will be to install all the dependencies of the project.
 
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+```sh
+cd ./LavaPi-Technical-Assesment
+npm install
 ```
 
-## Run tests
+Once the dependencies are installed, you can now configure your project by creating a new `.env` and `.env.test` files containing the environment variables used for development.
 
-```bash
-# unit tests
-$ npm run test
+`.env` should contain: `DATABASE_HOST`, `POSTGRES_DB`, `DATABASE_PORT`, `POSTGRES_USER`, `POSTGRES_PASSWORD`, `ACCESS_TOKEN_SECRET`, `ACCESS_TOKEN_LIFETIME`
 
-# e2e tests
-$ npm run test:e2e
+`.env.test` should contain: `ACCESS_TOKEN_SECRET`
 
-# test coverage
-$ npm run test:cov
+
+### 1.2 Launch and discover
+
+You can start the project using Docker Compose. This will help you quickly set up and run the application in a containerized environment.
+
+First, ensure you have Docker and Docker Compose installed on your workstation.
+
+To start the project, run the following command:
+
+```sh
+docker-compose up
 ```
 
-## Resources
+This command will build and run the Docker containers defined in the `docker-compose.yml` file.
 
-Check out a few resources that may come in handy when working with NestJS:
+To stop the containers, use:
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+```sh
+docker-compose down
+```
 
-## Support
+Make sure your `docker-compose.yml` file includes the necessary configurations for running the application, such as environment variables and service definitions.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-## Stay in touch
+## 2. Project structure
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```sh
+src/
+├── auth/
+│   ├── decorators/       # Stores decorator functions for extracting user's id from JWT, with corresponding spec files.
+│   ├── guards/           # Stores JWT auth guard files, with corresponding spec files.
+│   ├── strategies/       # Stores JWT strategy files for Passport, with corresponding spec files.
+│   ├── auth.module.ts
+│
+├── books/
+│   ├── dto/              # Stores files for Book DTOs.
+│   ├── entities/         # Stores files for Book entities.
+│   ├── books.controller.ts  # Controller for books, with corresponding spec file.
+│   ├── books.module.ts      # Module for books, with corresponding spec file.
+│   ├── books.service.ts     # Service for books, with corresponding spec file.
+│
+├── users/
+│   ├── dto/              # Stores files for User DTOs.
+│   ├── entities/         # Stores files for User entities.
+│   ├── users.controller.ts  # Controller for users, with corresponding spec file.
+│   ├── users.module.ts      # Module for users, with corresponding spec file.
+│   ├── users.service.ts     # Service for users, with corresponding spec file.
+│
+├── app.controller.ts     # Main application controller, with corresponding spec file.
+├── app.module.ts         # Main application module.
+├── app.service.ts        # Main application service.
+├── main.ts               # Entry point of the application.
+```
+
+
+## 3. default npm commands
+
+```sh
+# Start the application using the transpiled NodeJS
+npm run start
+
+# Run the application using "ts-node"
+npm run dev
+
+# Transpile the TypeScript files
+npm run build
+
+# Run the project' functional tests
+npm run test
+```
+
 
 ## License
 
