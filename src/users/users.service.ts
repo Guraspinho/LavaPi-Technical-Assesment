@@ -33,7 +33,7 @@ export class UsersService
             });
 
             await this.userRepository.save(user);
-            return { message: 'User created successfully' };
+            return { message: "User created successfully" };
 
         }
         catch (error)
@@ -47,7 +47,7 @@ export class UsersService
                 }
             }
             // For handling other types of errors
-            throw new InternalServerErrorException('Error registering user');
+            throw new InternalServerErrorException("Error registering user");
         }
 
     }
@@ -81,7 +81,7 @@ export class UsersService
             const payload = { firstName: user.firstName, lastName: user.lastName, id: user.id }; 
             const token = this.jwtService.sign(payload);
 
-            return { message: 'Logged in successfully', token: token };
+            return { message: "Logged in successfully", token };
             
         }
         catch (error)

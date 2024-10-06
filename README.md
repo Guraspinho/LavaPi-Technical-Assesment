@@ -1,7 +1,7 @@
 
 ## Book Management System
 
-This system will enable users to manage books with support for user authentication.
+This system enables users to manage books with support for user authentication.
 
 ## Project Overview
 
@@ -36,6 +36,7 @@ This project is built using **npm** and **TypeScript**. It includes user authent
    - User registration and login.
    - CRUD operations on books.
    - JWT-based authentication for securing routes.
+   - Error handling and validation.
 
 2. **Bonus Feature**:
    - **Book Search**: 
@@ -108,6 +109,10 @@ docker-compose down
 Make sure your `docker-compose.yml` file includes the necessary configurations for running the application, such as environment variables and service definitions.
 
 
+You can now visit http://localhost:3000/api to view the API Swagger documentation.
+
+For restricted routes, you can use the JWT by simply passing the token itself; there’s no need to include the "Bearer" prefix.
+
 ## 2. Project structure
 
 ```sh
@@ -131,6 +136,9 @@ src/
 │   ├── users.controller.ts  # Controller for users, with corresponding spec file.
 │   ├── users.module.ts      # Module for users, with corresponding spec file.
 │   ├── users.service.ts     # Service for users, with corresponding spec file.
+│
+├── swagger/              
+│   ├── swagger.module.ts    # Stores swagger configuration
 │
 ├── app.controller.ts     # Main application controller, with corresponding spec file.
 ├── app.module.ts         # Main application module.
@@ -156,6 +164,3 @@ npm run test
 ```
 
 
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).

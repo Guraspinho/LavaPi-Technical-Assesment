@@ -1,6 +1,6 @@
 import { HttpException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
-import { AddBookDto } from './dto/createBook.dto';
-import { UpdateBookDto } from './dto/editBook.dto';
+import { CreateBookDto } from './dto/createBook.dto';
+import { EditBookDto } from './dto/editBook.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Book } from './entities/book.entity';
 import { Repository } from 'typeorm';
@@ -14,7 +14,7 @@ export class BooksService
 
     constructor( @InjectRepository(Book) private bookRepository: Repository<Book> ) {}
 
-    async createBook(bookInfo: AddBookDto, userId: number)
+    async createBook(bookInfo: CreateBookDto, userId: number) 
     {
         try
         {
@@ -95,7 +95,7 @@ export class BooksService
         }
     }
 
-    async editBook(id: number, bookInfo: UpdateBookDto, userId:number)
+    async editBook(id: number, bookInfo: EditBookDto, userId:number)
     {
         try
         {

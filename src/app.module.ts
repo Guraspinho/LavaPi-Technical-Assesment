@@ -6,10 +6,12 @@ import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
 import { BooksModule } from './books/books.module';
 import { AuthModule } from './auth/auth.module';
+import { CustomSwaggerModule } from './swagger/swagger.module';
 
 
 @Module({
-    imports: [
+    imports:
+    [
         ConfigModule.forRoot(),
         TypeOrmModule.forRoot({
             type: "postgres",
@@ -25,6 +27,7 @@ import { AuthModule } from './auth/auth.module';
         UsersModule,
         BooksModule,
         AuthModule,
+        CustomSwaggerModule,
     ],
     controllers: [AppController],
     providers: [AppService],

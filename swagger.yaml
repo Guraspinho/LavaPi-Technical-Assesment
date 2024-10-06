@@ -1,0 +1,240 @@
+openapi: 3.0.0
+paths:
+  /:
+    get:
+      operationId: AppController_getHello
+      parameters: []
+      responses:
+        '200':
+          description: ''
+  /users/register:
+    post:
+      operationId: UsersController_register
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterUserDto'
+      responses:
+        '201':
+          description: User registered successfully.
+        '409':
+          description: Email already in use
+        '500':
+          description: Error registering user
+  /users/login:
+    post:
+      operationId: UsersController_login
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginUserDto'
+      responses:
+        '200':
+          description: Login successful, returns access token.
+        '401':
+          description: Email or password is incorrect
+        '500':
+          description: Error logging in
+  /users/info:
+    get:
+      operationId: UsersController_getUserInfo
+      parameters: []
+      responses:
+        '200':
+          description: Returns user information.
+        '401':
+          description: Unauthorized.
+        '500':
+          description: Error finding user
+      security:
+        - access-token: []
+  /books/create:
+    post:
+      operationId: BooksController_createBook
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBookDto'
+      responses:
+        '201':
+          description: Book created successfully.
+        '500':
+          description: Failed to add a book. Please try again later.
+      security: &ref_0
+        - access-token: []
+  /books/all:
+    get:
+      operationId: BooksController_listBooks
+      parameters: []
+      responses:
+        '200':
+          description: Returns a list of books with pagination (10 books per page)
+        '404':
+          description: Unfortunately, you do not have any books :(
+        '500':
+          description: Failed to retrieve books. Please try again later.
+      security: *ref_0
+  /books/details/{id}:
+    get:
+      operationId: BooksController_getBookDetails
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Returns details of the requested book.
+        '404':
+          description: Failed to retrieve a book.
+        '500':
+          description: Failed to retrieve a book. Please try again later.
+      security: *ref_0
+  /books/edit/{id}:
+    patch:
+      operationId: BooksController_editBook
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EditBookDto'
+      responses:
+        '200':
+          description: Book updated successfully.
+        '404':
+          description: Failed to retrieve a book.
+        '500':
+          description: Failed to update a book. Please try again later.
+      security: *ref_0
+  /books/delete/{id}:
+    delete:
+      operationId: BooksController_deleteBook
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: number
+      responses:
+        '200':
+          description: A book was deleted successfully.
+        '404':
+          description: Failed to retrieve a book.
+        '500':
+          description: Failed to delete a book. Please try again later.
+      security: *ref_0
+  /books/search:
+    get:
+      operationId: BooksController_searchBook
+      parameters:
+        - name: title
+          required: false
+          in: query
+          description: The title to search for
+          schema:
+            type: string
+        - name: author
+          required: false
+          in: query
+          description: The author to search for
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Books found matching the search criteria.
+        '404':
+          description: No books match your search criteria.
+        '500':
+          description: Failed to search books. Please try again later.
+      security: *ref_0
+info:
+  title: Book Management System API
+  description: >-
+    This system enables users to manage books with support for user
+    authentication.
+  version: '1.0'
+  contact: {}
+tags: []
+servers: []
+components:
+  securitySchemes:
+    access-token:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+  schemas:
+    RegisterUserDto:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: First name of the user
+          maxLength: 20
+        lastName:
+          type: string
+          description: Last name of the user
+          maxLength: 20
+        email:
+          type: string
+          description: Email of the user
+          example: user@example.com
+        password:
+          type: string
+          description: Password of the user
+          minLength: 8
+      required:
+        - firstName
+        - lastName
+        - email
+        - password
+    LoginUserDto:
+      type: object
+      properties:
+        email:
+          type: string
+          description: The email of the user
+          example: user@example.com
+        password:
+          type: string
+          description: The password of the user
+          example: password123
+      required:
+        - email
+        - password
+    CreateBookDto:
+      type: object
+      properties:
+        title:
+          type: string
+          description: The title of the book
+        author:
+          type: string
+          description: The author of the book
+        publishDate:
+          type: string
+          description: The publication date of the boo
+          format: date
+      required:
+        - title
+        - author
+        - publishDate
+    EditBookDto:
+      type: object
+      properties: {}
