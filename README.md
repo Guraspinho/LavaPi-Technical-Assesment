@@ -3,8 +3,63 @@
 
 This system will enable users to manage books with support for user authentication.
 
-## Description
+## Project Overview
 
+This project is built using **npm** and **TypeScript**. It includes user authentication and a protected books module. Below is a detailed explanation of the key features and functionalities.
+
+### User Registration and Login
+
+1. **User Registration**: 
+   - New users must register by providing necessary details such as first name, last name, email, and password.
+
+2. **User Login**: 
+   - Registered users can log in by providing their credentials (username/email and password).
+   - Upon successful login, users receive a JSON Web Token (JWT) which is used for authenticating subsequent requests.
+
+### JWT Authentication
+
+- **JWT Bearer Token**: 
+  - After logging in, users receive a JWT token.
+  - This token must be included in the `Authorization` header as a Bearer token for accessing protected routes.
+  - Example: `Authorization: Bearer <your-jwt-token>`
+
+### Books Module
+
+- **Protected Routes**: 
+  - All routes within the books module are protected.
+  - Users must include a valid JWT token in the authorization header to access these routes.
+  - Unauthorized requests (without a valid token) will be denied access.
+
+### Features
+
+1. **Basic Features**:
+   - User registration and login.
+   - CRUD operations on books.
+   - JWT-based authentication for securing routes.
+
+2. **Bonus Feature**:
+   - **Book Search**: 
+     - Users can search for books using criterias (title, author).
+     - This feature enhances the user experience by allowing easy access to book information.
+
+### Compliance
+
+- The project meets all the requirements specified in the assessment sheet.
+- It also includes additional features to enhance functionality and user experience.
+
+### Getting Started
+
+1. **Installation**:
+   - Clone the repository.
+   - Run `npm install` to install all dependencies.
+
+2. **Running the Project**:
+   - Use `npm start` to run the project.
+   - Ensure you have a valid JWT token for accessing protected routes.
+
+### Conclusion
+
+This project demonstrates a robust implementation of user authentication and protected routes using JWT. The additional book search feature provides an enhanced user experience, making it a comprehensive solution for managing user and book information.
 
 ## 1. Getting started
 
