@@ -81,7 +81,20 @@ npm install
 
 Once the dependencies are installed, you can now configure your project by creating a new `.env` and `.env.test` files containing the environment variables used for development.
 
-`.env` should contain: `DATABASE_HOST`, `POSTGRES_DB`, `DATABASE_PORT`, `POSTGRES_USER`, `POSTGRES_PASSWORD`, `ACCESS_TOKEN_SECRET`, `ACCESS_TOKEN_LIFETIME`
+`.env` should contain:  
+- `ACCESS_TOKEN_SECRET`: A secret key for signing the JWT tokens.
+- `ACCESS_TOKEN_LIFETIME`: The lifetime of the JWT tokens.
+For database configuration, you can use the following variables since this is written in `docker-compose`:
+
+```sh
+DATABASE_HOST=database
+DATABASE_PORT=5432
+POSTGRES_USER=irakli
+POSTGRES_PASSWORD=A11qitshors
+POSTGRES_DB=your_postgres_db
+```
+
+*Note: This configuration is only for demonstration purposes. For production, I would use more secure methods for managing environment variables and sensitive information.*
 
 `.env.test` should contain: `ACCESS_TOKEN_SECRET`
 
@@ -98,7 +111,9 @@ To start the project, run the following command:
 docker-compose up
 ```
 
-This command will build and run the Docker containers defined in the `docker-compose.yml` file.
+This command will build and run the Docker containers defined in the `docker-compose.yml` file. 
+
+Since the application is connected to a database, ensure the database service is running. The command above ensures that the database is up and running.
 
 To stop the containers, use:
 
@@ -113,28 +128,30 @@ You can now visit http://localhost:3000/api to view the API Swagger documentatio
 
 For restricted routes, you can use the JWT by simply passing the token itself; there’s no need to include the "Bearer" prefix.
 
+You can find the documentation in `swagger.yaml` file as well.
+
 ## 2. Project structure
 
 ```sh
 src/
 ├── auth/
-│   ├── decorators/       # Stores decorator functions for extracting user's id from JWT, with corresponding spec files.
-│   ├── guards/           # Stores JWT auth guard files, with corresponding spec files.
-│   ├── strategies/       # Stores JWT strategy files for Passport, with corresponding spec files.
+│   ├── decorators/       # Stores decorator functions for extracting user's id from JWT.
+│   ├── guards/           # Stores JWT auth guard files, with corresponding spec file.
+│   ├── strategies/       # Stores JWT strategy files for Passport, with corresponding spec file.
 │   ├── auth.module.ts
 │
 ├── books/
 │   ├── dto/              # Stores files for Book DTOs.
 │   ├── entities/         # Stores files for Book entities.
 │   ├── books.controller.ts  # Controller for books, with corresponding spec file.
-│   ├── books.module.ts      # Module for books, with corresponding spec file.
+│   ├── books.module.ts      # Module for books.
 │   ├── books.service.ts     # Service for books, with corresponding spec file.
 │
 ├── users/
 │   ├── dto/              # Stores files for User DTOs.
 │   ├── entities/         # Stores files for User entities.
 │   ├── users.controller.ts  # Controller for users, with corresponding spec file.
-│   ├── users.module.ts      # Module for users, with corresponding spec file.
+│   ├── users.module.ts      # Module for users.
 │   ├── users.service.ts     # Service for users, with corresponding spec file.
 │
 ├── swagger/              
@@ -147,18 +164,9 @@ src/
 ```
 
 
-## 3. default npm commands
+## 3. Testing
 
 ```sh
-# Start the application using the transpiled NodeJS
-npm run start
-
-# Run the application using "ts-node"
-npm run dev
-
-# Transpile the TypeScript files
-npm run build
-
 # Run the project' functional tests
 npm run test
 ```
