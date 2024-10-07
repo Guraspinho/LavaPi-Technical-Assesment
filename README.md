@@ -40,7 +40,7 @@ This project is built using **npm** and **TypeScript**. It includes user authent
 
 2. **Bonus Feature**:
    - **Book Search**: 
-     - Users can search for books using criterias (title, author).
+     - Users can search for books using criteria (title, author).
      - This feature enhances the user experience by allowing easy access to book information.
 
 ### Compliance
@@ -62,9 +62,9 @@ This project is built using **npm** and **TypeScript**. It includes user authent
 
 This project demonstrates a robust implementation of user authentication and protected routes using JWT. The additional book search feature provides an enhanced user experience, making it a comprehensive solution for managing user and book information.
 
-## 1. Getting started
+## 1. Getting Started
 
-### 1.1 Project configuration
+### 1.1 Project Configuration
 
 Start by cloning this project on your workstation.
 
@@ -72,19 +72,20 @@ Start by cloning this project on your workstation.
 git clone git@github.com:Guraspinho/LavaPi-Technical-Assesment.git
 ```
 
-The next thing will be to install all the dependencies of the project.
+Next, install all the dependencies of the project.
 
 ```sh
 cd ./LavaPi-Technical-Assesment
 npm install
 ```
 
-Once the dependencies are installed, you can now configure your project by creating a new `.env` and `.env.test` files containing the environment variables used for development.
+Once the dependencies are installed, configure your project by creating new `.env` and `.env.test` files containing the environment variables used for development.
 
 `.env` should contain:  
 - `ACCESS_TOKEN_SECRET`: A secret key for signing the JWT tokens.
 - `ACCESS_TOKEN_LIFETIME`: The lifetime of the JWT tokens.
-For database configuration, you can use the following variables since this is written in `docker-compose`:
+
+For database configuration, use the following variables (as specified in `docker-compose`):
 
 ```sh
 DATABASE_HOST=database
@@ -94,12 +95,11 @@ POSTGRES_PASSWORD=A11qitshors
 POSTGRES_DB=your_postgres_db
 ```
 
-*Note: This configuration is only for demonstration purposes. For production, I would use more secure methods for managing environment variables and sensitive information.*
+*Note: This configuration is only for demonstration purposes. For production, use more secure methods for managing environment variables and sensitive information.*
 
 `.env.test` should contain: `ACCESS_TOKEN_SECRET`
 
-
-### 1.2 Launch and discover
+### 1.2 Launch and Discover
 
 You can start the project using Docker Compose. This will help you quickly set up and run the application in a containerized environment.
 
@@ -123,14 +123,13 @@ docker-compose down
 
 Make sure your `docker-compose.yml` file includes the necessary configurations for running the application, such as environment variables and service definitions.
 
-
-You can now visit http://localhost:3000/api to view the API Swagger documentation.
+You can now visit [http://localhost:3000/api](http://localhost:3000/api) to view the API Swagger documentation.
 
 For restricted routes, you can use the JWT by simply passing the token itself; there’s no need to include the "Bearer" prefix.
 
-You can find the documentation in `swagger.yaml` file as well.
+You can find the documentation in the `swagger.yaml` file as well.
 
-## 2. Project structure
+## 2. Project Structure
 
 ```sh
 src/
@@ -163,12 +162,11 @@ src/
 ├── main.ts               # Entry point of the application.
 ```
 
-
 ## 3. Testing
 
 ```sh
-# Run the project' functional tests
+# Run the project's functional tests
 npm run test
 ```
 
-
+I used Jest and NestJS built-in testing modules for testing the application. Jest configuration is in `package.json`. I have implemented unit testing for the auth module (guards and strategies), the books module (`BookController`), and the users module (`UserController`). Additionally, I have written tests for every DTO in the project, ensuring that the data transfer objects validate inputs as expected. Furthermore, I have tests that verify that `UsersService` and `BooksService` are correctly defined and ready to use.

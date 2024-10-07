@@ -1,10 +1,13 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { BooksService } from './books.service';
-import { getRepositoryToken } from '@nestjs/typeorm';
-import { Book } from './entities/book.entity';
-import { Repository } from 'typeorm';
+import { Test, TestingModule } from "@nestjs/testing";
+import { BooksService } from "./books.service";
+import { getRepositoryToken } from "@nestjs/typeorm";
+import { Book } from "./entities/book.entity";
+import { Repository } from "typeorm";
 
-describe('BooksService', () => {
+// The test checks if the BooksService is defined, ensuring that the service
+// is correctly instantiated and available for use
+describe("BooksService", () =>
+{
     let service: BooksService;
     let bookRepository: Repository<Book>;
 
@@ -23,7 +26,8 @@ describe('BooksService', () => {
         bookRepository = module.get<Repository<Book>>(getRepositoryToken(Book));
     });
 
-    it('should be defined', () => {
+    it("should be defined", () =>
+    {
         expect(service).toBeDefined();
     });
 });

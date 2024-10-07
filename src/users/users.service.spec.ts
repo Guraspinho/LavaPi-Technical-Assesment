@@ -5,12 +5,16 @@ import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
 
-describe('UsersService', () => {
+// The test checks if the UserssService is defined, ensuring that the service
+// is correctly instantiated and available for use
+describe("UsersService", () =>
+{
     let service: UsersService;
     let userRepository: Repository<User>;
     let jwtService: JwtService;
 
-    beforeEach(async () => {
+    beforeEach(async () =>
+    {
         const module: TestingModule = await Test.createTestingModule({
             providers: [
                 UsersService,
@@ -34,7 +38,8 @@ describe('UsersService', () => {
         jwtService = module.get<JwtService>(JwtService);
     });
 
-    it('should be defined', () => {
+    it("should be defined", () =>
+    {
         expect(service).toBeDefined();
     });
 });
