@@ -95,7 +95,7 @@ POSTGRES_PASSWORD=A11qitshors
 POSTGRES_DB=your_postgres_db
 ```
 
-*Note: This configuration is only for demonstration purposes. For production, use more secure methods for managing environment variables and sensitive information.*
+*Note: This configuration is only for demonstration purposes. For production, I would use more secure methods for managing environment variables and sensitive information.*
 
 `.env.test` should contain: `ACCESS_TOKEN_SECRET`
 
